@@ -1,6 +1,7 @@
 package com.example.adivinaelnumero
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         // Interface
         val button = findViewById<Button>(R.id.button)
+        val rankingButton = findViewById<Button>(R.id.rankingButton)
         val userInput = findViewById<EditText>(R.id.editTextNumber)
         val historial = findViewById<TextView>(R.id.historial)
         val attemptCounter = findViewById<TextView>(R.id.attemptCounter)
@@ -106,6 +108,11 @@ class MainActivity : AppCompatActivity() {
             // Cleans user input
             userInput.text.clear()
 
+        }
+
+        rankingButton.setOnClickListener {
+            val intent = Intent(this, Ranking::class.java)
+            startActivity(intent)
         }
 
     }
