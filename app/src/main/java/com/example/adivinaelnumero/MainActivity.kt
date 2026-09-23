@@ -2,8 +2,10 @@ package com.example.adivinaelnumero
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         val userInput = findViewById<EditText>(R.id.editTextNumber)
         val historial = findViewById<TextView>(R.id.historial)
         val attemptCounter = findViewById<TextView>(R.id.attemptCounter)
+        val scrollView = findViewById<ScrollView>(R.id.scrollView)
 
         // Others
         secretNumber = Random.nextInt(1, 101)
@@ -93,6 +96,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     .show()
 
+            }
+
+            // Automatic scroll
+            scrollView.post {
+                scrollView.fullScroll(View.FOCUS_DOWN)
             }
 
             // Cleans user input
