@@ -85,17 +85,13 @@ class MainActivity : AppCompatActivity() {
                 AlertDialog.Builder(this)
                     .setTitle("¡Felicidades!")
                     .setMessage("Has acertado el número en $attempts intentos.")
-                    .setPositiveButton("OK") { _, _ ->
-
-                        // Reset attempt counter and history
-                        attempts = 0
-                        historial.text = "Historial:"
-                        attemptCounter.text = "Intentos: 0"
-
-                        // Regenerate the secretNumber after winning
-                        secretNumber = Random.nextInt(1, 101)
-
+                    .setPositiveButton("Guardar") { _, _ ->
+                        showInitialsDialog()
                     }
+                    .setNegativeButton("Omitir") { _, _ ->
+                        resetGame()
+                    }
+                    .setCancelable(false)
                     .show()
 
             }
@@ -115,5 +111,48 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    private fun showInitialsDialog() {
+        val input = EditText(this).apply {
+            hint = "ABC"
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or
+                    android.text.InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+            filters = arrayOf(android.text.InputFilter.LengthFilter(3))
+            gravity = android.view.Gravity.CENTER
+        }
+
+        val container = android.widget.FrameLayout(this).apply {
+            setPadding(60, 30, 60, 0)
+            addView(input)
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Introduce tus iniciales")
+            .setMessage("Intentos: $attempts")
+            .setView(container)
+            .setPositiveButton("OK") { _, _ ->
+                var initials = input.text.toString().trim().uppercase()
+                if (initials.isEmpty()) {
+                    initials = "AAA" // Por defecto en caso de no poner nada
+                }
+                RankingStore.add(initials, attempts)
+                resetGame()
+                startActivity(Intent(this, Ranking::class.java))
+            }
+            .setNegativeButton("Cancelar") { _, _ ->
+                resetGame()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun resetGame() {
+        val historial = findViewById<TextView>(R.id.historial)
+        val attemptCounter = findViewById<TextView>(R.id.attemptCounter)
+        attempts = 0
+        historial.text = "Historial:"
+        attemptCounter.text = "Intentos: 0"
+        secretNumber = Random.nextInt(1, 101)
     }
 }

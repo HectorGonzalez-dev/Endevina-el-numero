@@ -30,4 +30,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.123" />
+
+    <!-- android:stretchColumns="*" hace que las columnas tengan el mismo width -->
+    <TableLayout
+        android:id="@+id/rankingTable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rankingText">
+
+        <TableRow
+            android:background="#DDDDDD"
+            android:padding="8dp">
+
+            <TextView
+                android:text="POSICIÓN"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="8dp" />
+
+            <TextView
+                android:text="INICIALES"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="8dp" />
+
+            <TextView
+                android:text="INTENTOS"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="8dp" />
+        </TableRow>
+    </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
